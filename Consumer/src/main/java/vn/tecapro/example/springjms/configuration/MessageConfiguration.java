@@ -7,8 +7,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.connection.CachingConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.listener.DefaultMessageListenerContainer;
+import org.springframework.jms.listener.MessageListenerContainer;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.SimpleMessageConverter;
+import vn.tecapro.example.springjms.messaging.MessageReceiver;
+
 import javax.jms.ConnectionFactory;
 import java.util.Arrays;
 
@@ -23,6 +27,9 @@ public class MessageConfiguration {
     private static final String ORDER_QUEUE = "order-queue";
 
     private static final String ORDER_RESPONSE_QUEUE = "order-respone-queue";
+
+    @Autowired
+    MessageReceiver messageReceiver;
 
     @Bean
     public ConnectionFactory connectionFactory() {
@@ -42,22 +49,21 @@ public class MessageConfiguration {
     }
 
     //Message listener container for calling messageReceiver.onMessage on message reception
-    //for receiving class which implements MessageListener
-//    @Bean
-//    public MessageListenerContainer getContainer() {
-//        DefaultMessageListenerContainer container = new DefaultMessageListenerContainer();
-//        container.setConnectionFactory(connectionFactory());
-//        container.setDestinationName(ORDER_RESPONSE_QUEUE);
-//        container.setMessageListener(messageReceiver);
-//        return container;
-//    }
+    @Bean
+    public MessageListenerContainer getContainer() {
+        DefaultMessageListenerContainer container = new DefaultMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory());
+        container.setDestinationName(ORDER_QUEUE);
+        container.setMessageListener(messageReceiver);
+        return container;
+    }
 
     //for sending messages
     @Bean
     public JmsTemplate jmsTemplate() {
         JmsTemplate template = new JmsTemplate();
         template.setConnectionFactory(connectionFactory());
-        template.setDefaultDestinationName(ORDER_QUEUE);
+        template.setDefaultDestinationName(ORDER_RESPONSE_QUEUE);
         return template;
     }
 

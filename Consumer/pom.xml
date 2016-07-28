@@ -2,10 +2,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>vn.tecapro.example</groupId>
-    <artifactId>SpringJMSActiveMQProducer</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>SpringJMSActiveMQConsumer</artifactId>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <name>SpringJMSActiveMQ Maven Webapp</name>
+    <url>http://maven.apache.org</url>
 
     <properties>
         <springframework.version>4.3.0.RELEASE</springframework.version>
@@ -45,7 +46,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>SpringJMSActiveMQProducer</finalName>
+        <finalName>SpringJMSActiveMQ</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
