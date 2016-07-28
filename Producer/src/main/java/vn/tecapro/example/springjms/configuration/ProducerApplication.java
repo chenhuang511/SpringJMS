@@ -38,7 +38,7 @@ public class ProducerApplication {
 
     private static Product getProduct() {
         Product p = new Product();
-        p.setName("Product " + id.incrementAndGet());
+        p.setName("Product " + 2);
         p.setProductId(BasicUtil.getUniqueId());
         return p;
     }

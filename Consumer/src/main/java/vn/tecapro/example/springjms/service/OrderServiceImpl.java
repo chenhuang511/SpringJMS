@@ -23,6 +23,7 @@ public class OrderServiceImpl implements OrderService {
     public void processOrder(Product product) {
         InventoryResponse response = prepareResponse(product);
         LOG.info("Inventory : sending order confirmation {}", response);
+        messageSender.sendMessage(response);
     }
 
     private InventoryResponse prepareResponse(Product product) {

@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
-import vn.tecapro.example.springjms.model.Product;
-
+import vn.tecapro.example.springjms.model.InventoryResponse;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.ObjectMessage;
@@ -19,11 +18,11 @@ public class MessageSender {
     @Autowired
     JmsTemplate jmsTemplate;
 
-    public void sendMessage(final Product product) {
+    public void sendMessage(final InventoryResponse response) {
         jmsTemplate.send(new MessageCreator() {
             @Override
             public Message createMessage(Session session) throws JMSException {
-                ObjectMessage objectMessage = session.createObjectMessage(product);
+                ObjectMessage objectMessage = session.createObjectMessage(response);
                 return objectMessage;
             }
         });
